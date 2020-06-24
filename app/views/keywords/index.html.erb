@@ -1,0 +1,18 @@
+<h1>You currently have <%= Keyword.count %> keywords</h1>
+
+<ul>
+  <% @keywords.each do |keyword| %>
+    <li>
+      <%= keyword.title %>
+      <%= link_to "Delete",
+            keyword_path(keyword),
+            method: :delete %>
+    </li>
+  <% end %>
+</ul>
+
+<%= form_for(@keyword) do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  <%= f.submit %>
+<% end %>
