@@ -1,0 +1,11 @@
+<h1>All tweets for <%= @keyword.title %></h1>
+
+<ul>
+  <% @tweets.each do |tweet| %>
+    <li>
+      <%= tweet.content %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "Refresh", refresh_tweets_keyword_path(@keyword)%>
