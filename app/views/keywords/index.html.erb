@@ -4,6 +4,7 @@
   <% @keywords.each do |keyword| %>
     <li>
       <%= keyword.title %>
+      <%= link_to "See tweets", tweets_keyword_path(keyword)%>
       <%= link_to "Delete",
             keyword_path(keyword),
             method: :delete %>

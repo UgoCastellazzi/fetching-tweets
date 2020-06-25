@@ -1,4 +1,5 @@
 class KeywordsController < ApplicationController
+  before_action :find_keyword, only: [ :tweets]
 
   def index
     @keywords = Keyword.all
@@ -9,9 +10,20 @@ class KeywordsController < ApplicationController
     @keyword = Keyword.new
   end
 
+  def tweets
+    @tweets = @keyword.tweets
+  end
+
+  def refresh_tweets
+    @keyword = Keyword.find(params[:id])
+    FetchingTweetsJob.perform_now(@keyword)
+    redirect_to tweets_keyword_path(@keyword)
+  end
+
   def create
     @keyword = Keyword.new(keyword_params)
     @keyword.save
+    FetchingTweetsJob.perform_now(@keyword)
     redirect_to keywords_path
   end
 
@@ -25,6 +37,10 @@ class KeywordsController < ApplicationController
 
   def keyword_params
     params.require(:keyword).permit(:title)
+  end
+
+  def find_keyword
+    @keyword = Keyword.find(params[:id])
   end
 
 end
