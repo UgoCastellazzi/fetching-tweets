@@ -3,7 +3,11 @@
 <ul>
   <% @tweets.each do |tweet| %>
     <li>
-      <%= tweet.content %>
+      <%= tweet.content %> 
+      <%= link_to "Delete",
+            tweet_path(tweet),
+            method: :delete, 
+            remote: true %>
     </li>
   <% end %>
 </ul>
