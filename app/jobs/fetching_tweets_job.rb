@@ -12,8 +12,14 @@ class FetchingTweetsJob < ApplicationJob
       config.access_token        = ENV['TWITTER_ACCESS_TOKEN']
       config.access_token_secret = ENV['TWITTER_ACCESS_TOKEN_SECRET']
     end
-    client.search("#{keyword}", result_type: "recent").take(10).collect do |tweet|
-      puts "#{tweet.user.screen_name}: #{tweet.text}"
+    client.search("#{keyword.title}", result_type: "recent").take(1).collect do |tweet|
+      Tweet.create!(
+        handdle: tweet.user.screen_name,
+        content: tweet.text,
+        date: tweet.created_at,
+        link: "https://twitter.com/i/web/status/#{tweet.id}",
+        keyword_id: keyword.id
+      )
     end
   end
 
