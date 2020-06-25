@@ -1,4 +1,4 @@
-<h1>All tweets for <span data-keywordid = <%= @keyword.id %>><%= @keyword.title %></span></h1>
+<h1>All tweets you liked !</h1>
 
 <ul>
   <% @tweets.each do |tweet| %>
@@ -12,5 +12,3 @@
     </li>
   <% end %>
 </ul>
-
-<%= link_to "Refresh", refresh_tweets_keyword_path(@keyword), id:"refresh-button"%>
